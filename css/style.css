@@ -269,7 +269,7 @@ nav.hidden { transform: translateY(-100%); }
   border-radius: 100px;
   background: transparent;
   color: var(--text-secondary);
-  font-size: 0.8rem; cursor: pointer;
+  font-size: 1.2rem; cursor: pointer;
   transition: all 0.3s;
   font-family: inherit;
 }

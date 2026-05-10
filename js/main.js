@@ -180,7 +180,7 @@ function renderReleaseCards(releases, gridId) {
   grid.innerHTML = releases.map(r => `
     <a href="release.html?id=${encodeURIComponent(r.id || '')}" class="release-card reveal">
       <div class="release-card-image" style="background: ${safeBackground(r.cardColor)};">
-        ${r.cover ? `<img src="${escapeHtml(r.cover)}" alt="${escapeHtml(r.title)}" loading="lazy" onerror="this.style.display='none'">` : escapeHtml(r.emoji || '🎵')}
+        ${r.cover ? `<img src="${escapeHtml(r.cover)}" alt="${escapeHtml(r.title)}" loading="lazy" decoding="async" onerror="this.style.display='none'">` : escapeHtml(r.emoji || '🎵')}
       </div>
       <div class="release-card-body">
         <div class="release-card-tag">${escapeHtml(r.type)}${r.year ? ' · ' + escapeHtml(r.year) : ''}</div>
@@ -210,7 +210,7 @@ function renderLatestDetail(r) {
   var html = '<div class="latest-layout reveal">' +
     '<div class="latest-cover">' +
       (r.cover
-        ? '<img src="' + escapeHtml(r.cover) + '" alt="' + escapeHtml(r.title) + '" loading="lazy" onerror="this.style.display=\'none\'">'
+        ? '<img src="' + escapeHtml(r.cover) + '" alt="' + escapeHtml(r.title) + '" loading="eager" decoding="async" fetchpriority="high" onerror="this.style.display=\'none\'">'
         : '<div class="latest-cover-placeholder" style="background:' + safeBackground(r.cardColor) + ';"><span>' + escapeHtml(r.emoji || '🎵') + '</span></div>'
       ) +
     '</div>' +
@@ -444,10 +444,9 @@ function renderEventItem(e, i) {
 function loadEvents() {
   var events = typeof EVENTS_DATA !== 'undefined' ? EVENTS_DATA : [];
   var container = document.getElementById('event-list');
-  if (!container) return;
 
   if (events.length === 0) {
-    container.innerHTML = '<p style="color:var(--text-secondary);text-align:center;padding:2rem;">No upcoming events.</p>';
+    if (container) container.innerHTML = '<p style="color:var(--text-secondary);text-align:center;padding:2rem;">No upcoming events.</p>';
     return;
   }
 
@@ -459,6 +458,20 @@ function loadEvents() {
   });
 
   _eventsAll = events;
+
+  // Update announce marquee even on pages without an event list, like release details.
+  var marquee = document.getElementById('announce-marquee');
+  if (marquee && events.length > 0) {
+    var e = events[0];
+    var dateStr = '';
+    if (e.date && e.date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      var d = new Date(e.date);
+      dateStr = d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日 ';
+    }
+    setAnnounceText(marquee, 'Upcoming Events / Lives &#9670; ' + escapeHtml(dateStr + (e.event_name || '') + (e.booth ? ' ' + e.booth : '')) + ' &#9670;');
+  }
+
+  if (!container) return;
 
   // Phase 1: show first 5 + MORE button
   var firstBatch = events.slice(0, 5);
@@ -476,18 +489,6 @@ function loadEvents() {
 
   var paginationEl = document.getElementById('event-pagination');
   if (paginationEl) paginationEl.style.display = 'none';
-
-  // Update announce marquee
-  var marquee = document.getElementById('announce-marquee');
-  if (marquee && events.length > 0) {
-    var e = events[0];
-    var dateStr = '';
-    if (e.date && e.date.match(/^\d{4}-\d{2}-\d{2}$/)) {
-      var d = new Date(e.date);
-      dateStr = d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日 ';
-    }
-    setAnnounceText(marquee, 'Upcoming Events / Lives &#9670; ' + escapeHtml(dateStr + (e.event_name || '') + (e.booth ? ' ' + e.booth : '')) + ' &#9670;');
-  }
 
   initReveal();
 }
@@ -641,12 +642,7 @@ function initTabNavigation() {
         t.classList.remove('active');
       }
     });
-    // Trigger reveal animation for newly visible section
-    setTimeout(function() {
-      document.querySelectorAll('.page-section.visible .reveal').forEach(function(el) {
-        el.classList.add('visible');
-      });
-    }, 50);
+    initReveal();
   }
 
   tabs.forEach(function(tab) {
