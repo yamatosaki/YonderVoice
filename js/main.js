@@ -129,13 +129,19 @@ function initNavbar() {
 
 // ===== Parallax Floating Orbs =====
 function initParallax() {
-  window.addEventListener('mousemove', e => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 30;
-    const y = (e.clientY / window.innerHeight - 0.5) * 30;
-    const orb1 = document.querySelector('.orb-1');
-    const orb2 = document.querySelector('.orb-2');
-    if (orb1) orb1.style.transform = `translate(${x}px, ${y}px)`;
-    if (orb2) orb2.style.transform = `translate(${-x * 0.7}px, ${-y * 0.7}px)`;
+  var ticking = false;
+  window.addEventListener('mousemove', function(e) {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function() {
+      var x = (e.clientX / window.innerWidth - 0.5) * 30;
+      var y = (e.clientY / window.innerHeight - 0.5) * 30;
+      var orb1 = document.querySelector('.orb-1');
+      var orb2 = document.querySelector('.orb-2');
+      if (orb1) orb1.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+      if (orb2) orb2.style.transform = 'translate(' + (-x * 0.6) + 'px, ' + (-y * 0.6) + 'px)';
+      ticking = false;
+    });
   });
 }
 
@@ -204,7 +210,7 @@ function renderLatestDetail(r) {
   var html = '<div class="latest-layout reveal">' +
     '<div class="latest-cover">' +
       (r.cover
-        ? '<img src="' + escapeHtml(r.cover) + '" alt="' + escapeHtml(r.title) + '" onerror="this.style.display=\'none\'">'
+        ? '<img src="' + escapeHtml(r.cover) + '" alt="' + escapeHtml(r.title) + '" loading="lazy" onerror="this.style.display=\'none\'">'
         : '<div class="latest-cover-placeholder" style="background:' + safeBackground(r.cardColor) + ';"><span>' + escapeHtml(r.emoji || '🎵') + '</span></div>'
       ) +
     '</div>' +
@@ -268,7 +274,7 @@ function renderReleaseDetail(r) {
 
   // Cover
   if (r.cover) {
-    html += `<img src="${escapeHtml(r.cover)}" alt="${escapeHtml(r.title)}" class="release-detail-cover reveal" onerror="this.style.display='none'">`;
+    html += `<img src="${escapeHtml(r.cover)}" alt="${escapeHtml(r.title)}" class="release-detail-cover reveal" loading="lazy" onerror="this.style.display='none'">`;
   }
 
   // Video embed

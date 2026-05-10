@@ -39,6 +39,8 @@ body {
   width: 100vw; height: 92vh;
   overflow-x: scroll; overflow-y: hidden;
   white-space: nowrap;
+  will-change: scroll-position;
+  -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   display: flex;
