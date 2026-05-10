@@ -21,7 +21,7 @@ var RELEASES_DATA = [
     "shops": [
       {
         "name": "メロンブックス",
-        "url": "hthttps://www.melonbooks.co.jp/detail/detail.php?product_id=2748642"
+        "url": "https://www.melonbooks.co.jp/detail/detail.php?product_id=2748642"
       },
       {
         "name": "dizzylab (DL)",
