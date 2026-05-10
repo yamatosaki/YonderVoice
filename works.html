@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yonder Voice</title>
+<meta name="description" content="Yonder Voice - 东方同人音乐社团。Since 2008。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=HarmonyOS+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div data-site-intro></div>
+
+<div class="floating-orb orb-1"></div>
+<div class="floating-orb orb-2"></div>
+
+<div data-site-nav></div>
+
+<!-- Announcement -->
+<div class="announce-bar">
+  <div id="announce-marquee" class="announce-track">Upcoming Events / Lives ...</div>
+</div>
+
+<!-- Releases -->
+<section class="releases page-section" data-page="discography" id="releases">
+  <!-- Latest Release -->
+  <div class="releases-header reveal">
+    <h2 class="section-title" style="color:var(--accent);">New Releases</h2>
+  </div>
+  <div id="latest-detail" class="reveal">
+    <p class="loading-text">Loading...</p>
+  </div>
+
+  <!-- Past Releases -->
+  <div class="releases-header reveal" style="margin-top:4rem;">
+    <h2 class="section-title">Past Releases</h2>
+  </div>
+
+  <div class="filter-tabs reveal" id="filter-tabs">
+    <button class="filter-tab active" data-filter="all">ALL</button>
+    <button class="filter-tab" data-filter="Album">Albums</button>
+    <button class="filter-tab" data-filter="Single">Singles</button>
+    <button class="filter-tab" data-filter="Other">Other</button>
+  </div>
+
+  <div class="release-grid" id="release-grid">
+    <p class="loading-text loading-text--wide">Loading...</p>
+  </div>
+</section>
+
+<!-- Events -->
+<section class="events page-section" data-page="events" id="events">
+  <div class="events-header reveal">
+    <h2 class="section-title" style="color:var(--accent);">Upcoming Events / Lives</h2>
+    <p class="section-desc" style="margin:0 auto;">from Yonder Voice</p>
+  </div>
+  <div class="event-pagination reveal reveal-delay-1" id="event-pagination" style="display:none;"></div>
+  <div class="event-list reveal reveal-delay-1" id="event-list">
+    <p class="loading-text loading-text--compact">Loading...</p>
+  </div>
+  <div class="event-more-wrapper" id="event-more-wrapper" style="text-align:center;margin-top:1.5rem;display:none;">
+    <button class="event-more-btn" id="event-more-btn">MORE &darr;</button>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact page-section" data-page="contact" id="contact">
+  <h2 class="section-title reveal" style="color:var(--accent);">CONTACT</h2>
+  <div class="contact-links reveal reveal-delay-1">
+    <a href="https://twitter.com/YonderVoice" class="contact-link" target="_blank" rel="noopener">
+      <div class="icon">𝕏</div>
+      <div class="info">
+        <div class="label">Twitter / X</div>
+        <div class="value">@YonderVoice</div>
+      </div>
+    </a>
+    <a href="https://soundcloud.com/yondervoice" class="contact-link" target="_blank" rel="noopener">
+      <div class="icon">☁</div>
+      <div class="info">
+        <div class="label">SoundCloud</div>
+        <div class="value">YonderVoice</div>
+      </div>
+    </a>
+    <a href="mailto:yaoshanbailing@gmail.com" class="contact-link">
+      <div class="icon">✉</div>
+      <div class="info">
+        <div class="label">Email</div>
+        <div class="value">yaoshanbailing@gmail.com (サークル代表)</div>
+      </div>
+    </a>
+    <a href="mailto:yamatoskai123@gmail.com" class="contact-link">
+      <div class="icon">✉</div>
+      <div class="info">
+        <div class="label">Email</div>
+        <div class="value">yamatoskai123@gmail.com (在日責任者)</div>
+      </div>
+    </a>
+    <a href="https://weibo.com/u/1651912042" class="contact-link" target="_blank" rel="noopener">
+      <div class="icon" aria-hidden="true">
+        <svg class="weibo-icon" viewBox="0 0 24 24" role="img" focusable="false">
+          <path d="M9.3 20.6C4.8 20.6 1 18.4 1 15.6c0-2.2 2.4-4.3 5.8-5.1C6.4 9.3 7.2 8 8.5 8h.1c.7.1 1.1.4 1.5.8.4-.2.8-.3 1.3-.4.8-.1 1.4.4 1.5 1.1.1.4 0 .7-.1 1 2.5.8 4 2.7 4 4.8 0 2.9-3.4 5.3-7.5 5.3Zm-2-7.8c-2 .6-3.2 1.7-3.2 3 0 1.7 2.3 3.1 5.2 3.1s5.2-1.4 5.2-3.1-2.3-3.1-5.2-3.1c-.7 0-1.4.1-2 .1Zm.7 4.3c-.6 0-1.1-.4-1.1-.9s.5-.9 1.1-.9 1.1.4 1.1.9-.5.9-1.1.9Zm3-.2c-.4.7-1.3 1-2 .7-.6-.3-.8-.9-.4-1.5.4-.7 1.3-1 2-.7.6.3.8.9.4 1.5Zm5.3-5.8c-.3 0-.6-.2-.7-.5-.2-.4 0-.8.4-1 .9-.4 1.3-1.4 1-2.4-.3-.9-1.2-1.5-2.1-1.4-.4.1-.8-.2-.9-.6-.1-.4.2-.8.6-.9 1.7-.3 3.3.8 3.8 2.4.5 1.7-.2 3.4-1.8 4.2-.1.2-.2.2-.3.2Zm3.3 1.2c-.3 0-.6-.2-.7-.4-.2-.4-.1-.8.3-1 1.7-.9 2.5-2.9 1.9-4.8-.6-1.8-2.4-3-4.2-2.8-.4.1-.8-.2-.9-.7 0-.4.3-.8.7-.9 2.6-.3 5.1 1.4 5.9 3.9.8 2.6-.3 5.4-2.7 6.7h-.3Z"/>
+        </svg>
+      </div>
+      <div class="info">
+        <div class="label">Weibo</div>
+        <div class="value">YonderVoice_瑶山百霊</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- About / Features -->
+<section class="features page-section" data-page="about" style="text-align:center;padding-top:2rem;">
+  <img src="images/LOGO.webp" alt="Yonder Voice" class="about-logo reveal">
+  <h2 class="section-title reveal" style="color:var(--accent);">About Yonder Voice</h2>
+  <div class="reveal reveal-delay-1" style="background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:1.5rem 2rem;max-width:900px;margin:0 auto 2rem;text-align:justify;font-size:1.4rem;color:#fff;font-weight:700;line-height:1.8;">
+    Yonder Voiceは、東方Projectを中心として積極的に創作・活動を行っている中国の同人音楽サークルです。
+    2010年に設立され、コミケット、例大祭、M3、ComiCon、COMICUPなど、海内外の同人イベントで活動しています。
+  </div>
+  <div class="section-label reveal" style="font-size:clamp(2rem, 5vw, 3.5rem);font-weight:700;color:var(--accent);letter-spacing:-0.02em;line-height:1.1;margin-bottom:1.5rem;text-transform:none;">Members</div>
+  <div class="reveal reveal-delay-1" style="text-align:center;margin-bottom:1rem;">
+    <div class="feature-card" style="display:inline-block;max-width:400px;border:2px solid transparent;border-image:linear-gradient(90deg,#ff6b9d,#ff9d6b,#ffe66b,#6bff8e,#6be6ff,#8e6bff,#ff6b9d)1;">
+      <p style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:0.2rem;">瑶山百霊</p>
+      <p style="font-size:0.8rem;color:var(--accent);margin-bottom:0.2rem;">YooSanHyakurei</p>
+      <p style="font-size:0.75rem;color:var(--text-secondary);">代表 · 歌手</p>
+    </div>
+  </div>
+  <div class="members-grid reveal reveal-delay-1" style="display:grid;grid-template-columns:repeat(4, 1fr);gap:1rem;max-width:900px;margin:0 auto;">
+    <div class="feature-card">
+      <h4 style="margin-bottom:0.3rem;font-size:1.2rem;">蒼羅杏</h4>
+      <p style="font-size:0.8rem;color:var(--accent);margin-bottom:0.5rem;">Anzu Sora</p>
+      <p style="font-size:0.85rem;color:var(--text-secondary);">作詞</p>
+    </div>
+    <div class="feature-card">
+      <h4 style="margin-bottom:0.3rem;font-size:1.2rem;">yato</h4>
+      <p style="font-size:0.8rem;color:var(--accent);margin-bottom:0.5rem;">ヤト</p>
+      <p style="font-size:0.85rem;color:var(--text-secondary);">編曲 · 作曲</p>
+    </div>
+    <div class="feature-card">
+      <h4 style="margin-bottom:0.3rem;font-size:1.2rem;">LEMiao</h4>
+      <p style="font-size:0.8rem;color:var(--accent);margin-bottom:0.5rem;">レミオ</p>
+      <p style="font-size:0.85rem;color:var(--text-secondary);">編曲 · 作曲</p>
+    </div>
+    <div class="feature-card">
+      <h4 style="margin-bottom:0.3rem;font-size:1.2rem;">空老板</h4>
+      <p style="font-size:0.8rem;color:var(--accent);margin-bottom:0.5rem;">コンロウバン</p>
+      <p style="font-size:0.85rem;color:var(--text-secondary);">在日責任者</p>
+    </div>
+  </div>
+
+  <div class="reveal" style="text-align:center;margin-top:3rem;">
+    <div class="section-label" style="font-size:clamp(2rem, 5vw, 3.5rem);font-weight:700;color:var(--accent);letter-spacing:-0.02em;line-height:1.1;margin-bottom:1.5rem;text-transform:none;">Friend Links</div>
+    <div class="friend-links" style="justify-content:center;">
+      <a href="https://www16.big.or.jp/~zun/" target="_blank" rel="noopener">上海アリス幻樂団</a>
+      <a href="https://tasukete.be/" target="_blank" rel="noopener">黄昏フロンティア</a>
+      <a href="https://e-ns.net/" target="_blank" rel="noopener">EastNewSound</a>
+      <a href="https://frozenstarfall.net/" target="_blank" rel="noopener">Frozen Starfall</a>
+      <a href="http://bunnyrhythm.net/" target="_blank" rel="noopener">bunny rhyTHm</a>
+      <a href="https://alst.net/" target="_blank" rel="noopener">Alstroemeria Records</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <ul class="footer-links">
+    <li><a href="https://soundcloud.com/yondervoice" target="_blank" rel="noopener">SoundCloud</a></li>
+    <li><a href="https://twitter.com/YonderVoice" target="_blank" rel="noopener">Twitter</a></li>
+    <li><a href="https://www.youtube.com/@yondervoice9615/featured" target="_blank" rel="noopener">YouTube</a></li>
+    <li><a href="https://weibo.com/u/1651912042" target="_blank" rel="noopener">Weibo</a></li>
+    <li><a href="https://space.bilibili.com/210232?spm_id_from=333.337.0.0" target="_blank" rel="noopener">Bilibili</a></li>
+    <li><a href="https://www.dizzylab.net/l/Yonder%20Voice/" target="_blank" rel="noopener">Dizzylab</a></li>
+  </ul>
+  <p>&copy; 2010 Yonder Voice. All rights reserved.</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
