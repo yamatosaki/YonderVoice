@@ -50,9 +50,22 @@ if %errorlevel% neq 0 (
 git remote get-url origin >nul 2>&1
 if %errorlevel% equ 0 set "HAS_REMOTE=1"
 
+if "%HAS_REMOTE%"=="1" (
+  echo.
+  echo ===== 3. Sync remote base =====
+  git fetch origin
+  if errorlevel 1 (
+    echo Git fetch failed!
+    pause
+    exit /b 1
+  )
+  git rev-parse --verify origin/main >nul 2>&1
+  if not errorlevel 1 git reset --soft origin/main
+)
+
 if "%HAS_READY%"=="1" (
   echo.
-  echo ===== 3. Copy _ready files to repository =====
+  echo ===== 4. Copy _ready files to repository =====
   copy /y "%READY%\index.html" "index.html"
   copy /y "%READY%\works.html" "works.html"
   copy /y "%READY%\release.html" "release.html"
@@ -72,13 +85,13 @@ if "%HAS_READY%"=="1" (
   xcopy "%READY%\images" "images\" /E /I /Y
 ) else (
   echo.
-  echo ===== 3. Use current folder files =====
+  echo ===== 4. Use current folder files =====
   echo No copy needed.
 )
 
 echo.
-echo ===== 4. Git commit =====
-git add index.html works.html release.html guidelines.html about.html css js images .gitignore update.bat
+echo ===== 5. Git commit =====
+git add -A
 git diff --cached --quiet
 if errorlevel 1 (
   git -c user.name="yamatosaki" -c user.email="yamatosaki@users.noreply.github.com" commit -m "Update site files"
@@ -92,15 +105,6 @@ if errorlevel 1 (
 )
 
 if "%HAS_REMOTE%"=="1" (
-  echo.
-  echo ===== 5. Git pull =====
-  git pull --rebase
-  if errorlevel 1 (
-    echo Git pull failed!
-    pause
-    exit /b 1
-  )
-
   echo.
   echo ===== 6. Git push =====
   git rev-parse --abbrev-ref --symbolic-full-name @{u} >nul 2>&1
