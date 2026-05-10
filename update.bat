@@ -44,7 +44,7 @@ echo ===== 2. Check git repository =====
 git rev-parse --is-inside-work-tree >nul 2>&1
 if %errorlevel% neq 0 (
   git init -b main >nul 2>&1
-  if %errorlevel% neq 0 git init >nul 2>&1
+  if errorlevel 1 git init >nul 2>&1
 )
 
 git remote get-url origin >nul 2>&1
@@ -80,39 +80,39 @@ echo.
 echo ===== 4. Git commit =====
 git add index.html works.html release.html guidelines.html about.html css js images .gitignore update.bat
 git diff --cached --quiet
-if %errorlevel% equ 0 (
-  echo No changes to commit.
-) else (
+if errorlevel 1 (
   git -c user.name="yamatosaki" -c user.email="yamatosaki@users.noreply.github.com" commit -m "Update site files"
-  if %errorlevel% neq 0 (
+  if errorlevel 1 (
     echo Git commit failed!
     pause
-    exit /b %errorlevel%
+    exit /b 1
   )
+) else (
+  echo No changes to commit.
 )
 
 if "%HAS_REMOTE%"=="1" (
   echo.
   echo ===== 5. Git pull =====
   git pull --rebase
-  if %errorlevel% neq 0 (
+  if errorlevel 1 (
     echo Git pull failed!
     pause
-    exit /b %errorlevel%
+    exit /b 1
   )
 
   echo.
   echo ===== 6. Git push =====
   git rev-parse --abbrev-ref --symbolic-full-name @{u} >nul 2>&1
-  if %errorlevel% neq 0 (
+  if errorlevel 1 (
     git push -u origin HEAD
   ) else (
     git push
   )
-  if %errorlevel% neq 0 (
+  if errorlevel 1 (
     echo Git push failed!
     pause
-    exit /b %errorlevel%
+    exit /b 1
   )
 ) else (
   echo.
