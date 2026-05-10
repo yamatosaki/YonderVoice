@@ -1,1 +1,6 @@
 node_modules/
+data/
+build.js
+package.json
+package-lock.json
+update.bat
